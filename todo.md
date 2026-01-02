@@ -1,0 +1,21 @@
+# Abyss by Mehu
+
+## TODO
+
+- [ ] Choose music track
+- [ ] Choose font
+- [X] Decide on text rendering technique
+  - [ ] Implement bleeding effects
+- [ ] The Surface
+  - [ ] Texts eg. Mehu
+  - [ ] Light shafts
+  - [ ] Water background color
+- [ ] The Descent
+  - [ ] Particles
+- [ ] The Garden
+  - [ ] Seafloor
+  - [ ] Jellyfish
+- [ ] The Currents
+  - [ ] Ribbons
+- [ ] The Void
+  - [ ] Greets
