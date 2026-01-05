@@ -5,7 +5,7 @@
 - [ ] Choose music track
 - [ ] Choose font
 - [X] Decide on text rendering technique
-  - [ ] Implement bleeding effects
+  - [ ] Implement text effects
 - [ ] The Surface
   - [ ] Texts eg. Mehu
   - [ ] Light shafts
