@@ -7,6 +7,7 @@
 - [X] Decide on text rendering technique
   - [ ] Implement text effects
 - [ ] The Surface
+  - [ ] The surface (mesh above)
   - [ ] Texts eg. Mehu
   - [ ] Light shafts
   - [ ] Water background color
