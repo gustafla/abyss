@@ -7,10 +7,10 @@
 - [X] Decide on text rendering technique
   - [ ] Implement text effects
 - [ ] The Surface
-  - [ ] The surface (mesh above)
+  - [X] The surface (mesh above)
   - [ ] Texts eg. Mehu
-  - [ ] Light shafts
-  - [ ] Water background color
+  - [X] Light shafts
+  - [X] Water background color
 - [ ] The Descent
   - [ ] Particles
 - [ ] The Garden
