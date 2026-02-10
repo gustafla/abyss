@@ -2,7 +2,7 @@
 
 ## TODO
 
-- [ ] Choose music track
+- [X] Choose music track
   - https://freemusicarchive.org/music/aldous-ichnite/arrival-at-deep-lab-one/unknown-specimen/
     - If Aldous Ichnite replies
   - https://freemusicarchive.org/music/amarent/free-electronic-music/d2/
@@ -16,7 +16,8 @@
   - [X] Light shafts
   - [X] Water background color
 - [ ] The Descent
-  - [ ] Particles
+  - [X] Particles
+  - [ ] Credit music artist
 - [ ] The Garden
   - [ ] Seafloor
   - [ ] Jellyfish
