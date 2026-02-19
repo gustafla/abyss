@@ -20,8 +20,9 @@
   - [ ] Credit music artist
 - [ ] The Garden
   - [ ] Seafloor
-  - [ ] Jellyfish
+  - [X] Jellyfish
 - [ ] The Currents
   - [ ] Ribbons
+  - [ ] Structures & tunnel chase
 - [ ] The Void
   - [ ] Greets
