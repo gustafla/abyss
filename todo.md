@@ -19,7 +19,7 @@
   - [X] Particles
   - [ ] Credit music artist
 - [ ] The Garden
-  - [ ] Seafloor
+  - [X] Seafloor
   - [X] Jellyfish
 - [ ] The Currents
   - [ ] Ribbons
