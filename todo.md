@@ -9,16 +9,16 @@
     - CC-BY
 - [ ] Choose font
 - [X] Decide on text rendering technique
-  - [ ] Implement text effects
-- [ ] The Surface
+  - [X] Implement text effects
+- [X] The Surface
   - [X] The surface (mesh above)
-  - [ ] Texts eg. Mehu
+  - [X] Texts eg. Mehu
   - [X] Light shafts
   - [X] Water background color
-- [ ] The Descent
+- [X] The Descent
   - [X] Particles
-  - [ ] Credit music artist
-- [ ] The Garden
+  - [X] Credit music artist
+- [X] The Garden
   - [X] Seafloor
   - [X] Jellyfish
 - [ ] The Currents
