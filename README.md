@@ -14,6 +14,12 @@ Artist:  Amarent
 Source:  Free Music Archive (https://freemusicarchive.org/music/amarent/free-electronic-music/d2/)
 License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
+## Font License
+
+Unitblock by GGBot
+URL: https://ggbot.itch.io/unitblock-font
+License: CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+
 ## Third-party Software Licenses
 
 ### SDL
