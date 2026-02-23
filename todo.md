@@ -21,8 +21,17 @@
 - [X] The Garden
   - [X] Seafloor
   - [X] Jellyfish
+    - [ ] Color pallette
+    - [ ] Tentacles
+  - [ ] Dust billboards
+  - [ ] Bubbles
 - [ ] The Currents
   - [ ] Ribbons
-  - [ ] Structures & tunnel chase
+  - [ ] Floating rocks
+  - [ ] Better camera fly-through
 - [ ] The Void
   - [ ] Greets
+- [ ] Polish
+  - [ ] Screen transition effects
+  - [ ] Screen-space lens sprites
+  - [ ] Consider removing chromatic aberration
