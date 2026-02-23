@@ -21,7 +21,7 @@
 - [X] The Garden
   - [X] Seafloor
   - [X] Jellyfish
-    - [ ] Color pallette
+    - [X] Color pallette
     - [ ] Tentacles
   - [ ] Dust billboards
   - [ ] Bubbles
@@ -34,4 +34,4 @@
 - [ ] Polish
   - [ ] Screen transition effects
   - [ ] Screen-space lens sprites
-  - [ ] Consider removing chromatic aberration
+  - [X] Consider removing chromatic aberration
