@@ -7,7 +7,7 @@
     - If Aldous Ichnite replies
   - https://freemusicarchive.org/music/amarent/free-electronic-music/d2/
     - CC-BY
-- [ ] Choose font
+- [X] Choose font
 - [X] Decide on text rendering technique
   - [X] Implement text effects
 - [X] The Surface
@@ -16,6 +16,7 @@
   - [X] Light shafts
   - [X] Water background color
 - [X] The Descent
+  - [ ] Bubbles
   - [X] Particles
   - [X] Credit music artist
 - [X] The Garden
@@ -24,14 +25,12 @@
     - [X] Color pallette
     - [X] Tentacles
   - [X] Dust billboards
-  - [ ] Bubbles
 - [ ] The Currents
   - [ ] Ribbons
   - [X] Floating rocks
-  - [ ] Better camera fly-through
+  - [X] Better camera fly-through
 - [ ] The Void
   - [ ] Greets
 - [ ] Polish
   - [ ] Screen transition effects
-  - [ ] Screen-space lens sprites
   - [X] Consider removing chromatic aberration
