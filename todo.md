@@ -22,12 +22,12 @@
   - [X] Seafloor
   - [X] Jellyfish
     - [X] Color pallette
-    - [ ] Tentacles
-  - [ ] Dust billboards
+    - [X] Tentacles
+  - [X] Dust billboards
   - [ ] Bubbles
 - [ ] The Currents
   - [ ] Ribbons
-  - [ ] Floating rocks
+  - [X] Floating rocks
   - [ ] Better camera fly-through
 - [ ] The Void
   - [ ] Greets
