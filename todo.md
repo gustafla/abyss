@@ -25,8 +25,8 @@
     - [X] Color pallette
     - [X] Tentacles
   - [X] Dust billboards
-- [ ] The Currents
-  - [ ] Ribbons
+- [X] The Currents
+  - [X] Ribbons
   - [X] Floating rocks
   - [X] Better camera fly-through
 - [ ] The Void
