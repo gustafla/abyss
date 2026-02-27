@@ -31,6 +31,7 @@
   - [X] Better camera fly-through
 - [ ] The Void
   - [ ] Greets
+  - [X] Fade out
 - [ ] Polish
   - [ ] Screen transition effects
   - [X] Consider removing chromatic aberration
