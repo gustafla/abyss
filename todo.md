@@ -16,7 +16,7 @@
   - [X] Light shafts
   - [X] Water background color
 - [X] The Descent
-  - [ ] Bubbles
+  - [X] Bubbles
   - [X] Particles
   - [X] Credit music artist
 - [X] The Garden
