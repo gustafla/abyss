@@ -29,8 +29,8 @@
   - [X] Ribbons
   - [X] Floating rocks
   - [X] Better camera fly-through
-- [ ] The Void
-  - [ ] Greets
+- [X] The Void
+  - [X] Greets
   - [X] Fade out
 - [ ] Polish
   - [ ] Screen transition effects
