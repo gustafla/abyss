@@ -21,11 +21,17 @@ const util = @import("script/util.zig");
 
 // ---- CONFIG ----
 
-pub const width = 814;
-pub const height = 440;
-pub const aspect = width / height;
-pub const near = 1;
-pub const far = 1024;
+pub const config = struct {
+    pub const width = 814;
+    pub const height = 440;
+    pub const aspect = width / height;
+    pub const near = 1;
+    pub const far = 1024;
+
+    // Music: D2 by Amarent, BPM: 110, length: 352
+    pub const audio = "music.ogg";
+    pub const bpm = 110;
+};
 
 // ---- GLOBAL ----
 
