@@ -20,7 +20,7 @@ layout(location = 1) out vec2 out_uv;
 layout(location = 2) flat out vec3 out_color;
 layout(location = 3) flat out vec3 out_cam_pos;
 
-#include <lib/transform.glsl>
+#include <transform.glsl>
 
 float sine(float t, float f) {
     return sin(t * 3.14159265 * 2.0 * f) * 0.5 + 0.5;

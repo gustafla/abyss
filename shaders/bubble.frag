@@ -18,7 +18,7 @@ layout(std140, set = 3, binding = 0) uniform FragmentFrameData {
     float u_time_r;
 };
 
-#include <lib/water_common.glsl>
+#include <water_common.glsl>
 
 void main() {
     vec3 view_dir = normalize(in_pos);

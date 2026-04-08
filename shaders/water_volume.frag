@@ -12,7 +12,7 @@ layout(std430, set = 2, binding = 0) readonly buffer WaterData {
     float brightness;
 };
 
-#include <lib/water_common.glsl>
+#include <water_common.glsl>
 
 void main() {
     vec3 view_dir = normalize(in_view_ray);

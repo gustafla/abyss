@@ -8,9 +8,9 @@ layout(location = 0) out vec4 out_color;
 
 #define SUN_COLOR vec3(0)
 #define SKY_COLOR vec3(0)
-#include <lib/water_common.glsl>
-#include <lib/noise.glsl>
-#include <lib/color.glsl>
+#include <water_common.glsl>
+#include <noise.glsl>
+#include <color.glsl>
 
 struct PointLight {
     vec3 position;

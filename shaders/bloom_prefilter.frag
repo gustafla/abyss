@@ -10,7 +10,7 @@ layout(set = 2, binding = 0) uniform sampler2D u_input_texture;
 #define KNEE 2
 #define EPSILON 0.00001
 
-#include <lib/color.glsl>
+#include <color.glsl>
 
 // https://www.desmos.com/calculator/0cw6zqclwh
 

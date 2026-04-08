@@ -19,7 +19,7 @@ layout(std430, set = 2, binding = 0) readonly buffer PointLightData {
 
 #define SUN_COLOR vec3(0)
 #define SKY_COLOR vec3(0)
-#include <lib/water_common.glsl>
+#include <water_common.glsl>
 
 void main() {
     float dist = length(in_pos);

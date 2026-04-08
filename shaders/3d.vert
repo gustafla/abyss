@@ -18,7 +18,7 @@ layout(location = 0) out vec3 out_position;
 layout(location = 1) out vec3 out_normal;
 layout(location = 2) flat out vec3 out_cam_pos;
 
-#include <lib/transform.glsl>
+#include <transform.glsl>
 
 void main() {
     vec3 cam_pos = u_cam_pos.xyz;

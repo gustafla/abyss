@@ -19,7 +19,7 @@ layout(std430, set = 2, binding = 0) readonly buffer WaterData {
     float brightness;
 };
 
-#include <lib/water_common.glsl>
+#include <water_common.glsl>
 
 void main() {
     float t = u_time_g + in_anim_offset;

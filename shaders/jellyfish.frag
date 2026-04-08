@@ -15,7 +15,7 @@ layout(std140, set = 3, binding = 0) uniform FragmentFrameData {
 
 #define SUN_COLOR vec3(0)
 #define SKY_COLOR vec3(0)
-#include <lib/water_common.glsl>
+#include <water_common.glsl>
 
 void main() {
     float v = 1.0 - in_local_pos.y * 2.0;

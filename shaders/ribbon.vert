@@ -20,7 +20,7 @@ layout(location = 2) out float out_fade;
 layout(location = 3) flat out vec3 out_cam_pos;
 layout(location = 4) flat out vec2 out_phase_dir;
 
-#include <lib/transform.glsl>
+#include <transform.glsl>
 
 void main() {
     vec3 cam_pos = u_cam_pos.xyz;

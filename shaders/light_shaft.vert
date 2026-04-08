@@ -18,7 +18,7 @@ layout(std140, set = 1, binding = 0) uniform VertexFrameData {
     float u_time;
 };
 
-#include <lib/transform.glsl>
+#include <transform.glsl>
 
 void main() {
     vec3 cam_pos = u_cam_pos.xyz;

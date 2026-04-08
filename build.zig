@@ -1,4 +1,5 @@
 const std = @import("std");
+const engine = @import("mehustin2");
 
 pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
@@ -13,9 +14,12 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
-    script_mod.addImport("lib", engine_dep.module("script"));
+    script_mod.addImport("engine", engine_dep.module("engine"));
     engine_dep.module("render").addImport("script", script_mod);
     engine_dep.module("exe").addImport("script", script_mod);
+
+    // Compile and install shaders
+    engine.compileShaders(b, engine_dep);
 
     // Extract and install the artifacts the engine builds
     const demo_exe = engine_dep.artifact("demo"); // TODO configure this with options
@@ -23,7 +27,6 @@ pub fn build(b: *std.Build) void {
     const render_lib = engine_dep.artifact("render");
     b.installArtifact(render_lib);
 
-    // Optional: Re-expose the run step
     const run_cmd = b.addRunArtifact(demo_exe);
     run_cmd.step.dependOn(b.getInstallStep());
     const run_step = b.step("run", "Run the application");

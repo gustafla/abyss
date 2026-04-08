@@ -8,7 +8,7 @@ layout(set = 2, binding = 0) uniform sampler2D u_input_texture;
 layout(set = 2, binding = 1) uniform sampler2D u_bloom_texture;
 layout(set = 2, binding = 2) uniform sampler2D u_noise_texture;
 
-#include <lib/color.glsl>
+#include <color.glsl>
 
 void main() {
     vec3 color = texture(u_input_texture, in_uv).rgb;

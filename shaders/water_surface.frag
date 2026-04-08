@@ -18,8 +18,8 @@ layout(std430, set = 2, binding = 2) readonly buffer WaterData {
     float brightness;
 };
 
-#include <lib/transform.glsl>
-#include <lib/water_common.glsl>
+#include <transform.glsl>
+#include <water_common.glsl>
 
 vec3 ripple(vec3 normal, vec2 uv) {
     float t = u_global_time;
