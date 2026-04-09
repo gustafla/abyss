@@ -8,7 +8,7 @@ const types = engine.types;
 const math = engine.math;
 const Vec3 = math.Vec3;
 const Vec4 = math.Vec4;
-const Timeline = engine.timeline.Timeline;
+const schema = engine.schema;
 const vec3 = math.vec3;
 const resource = engine.resource;
 const camera = engine.camera;
@@ -23,8 +23,8 @@ const options = engine.options;
 
 pub const config = struct {
     pub const main = @import("config.zon");
-    pub const render = @import("render.zon");
-    pub const timeline: Timeline = @import("timeline.zon");
+    pub const render: schema.Render = @import("render.zon");
+    pub const timeline: schema.Timeline = @import("timeline.zon");
     pub const aspect = config.main.width / config.main.height;
 };
 
