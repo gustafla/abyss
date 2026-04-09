@@ -3,7 +3,7 @@ const engine = @import("mehustin2");
 
 pub fn build(b: *std.Build) void {
     // Initialize options and dependency
-    const options = engine.initOptions(b);
+    const options = engine.Options.init(b);
     const engine_dep = b.dependency("mehustin2", options);
 
     const engine_mod = engine_dep.module("engine");
