@@ -4,21 +4,22 @@ Released at Instanssi 2026
 
 ## Credits
 
-code: luutifa
-music: Amarent
+- *code:* luutifa
+- *music:* Amarent
 
 ## Music License
 
-Title:   D2
-Artist:  Amarent
-Source:  Free Music Archive (https://freemusicarchive.org/music/amarent/free-electronic-music/d2/)
-License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+- *Title:*   D2
+- *Artist:*  Amarent
+- *Source:*  Free Music Archive (https://freemusicarchive.org/music/amarent/free-electronic-music/d2/)
+- *License:* CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 
 ## Font License
 
 Unitblock by GGBot
-URL: https://ggbot.itch.io/unitblock-font
-License: CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+
+- *URL:* https://ggbot.itch.io/unitblock-font
+- *License:* CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
 
 ## Third-party Software Licenses
 
@@ -26,6 +27,7 @@ License: CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
 
 https://github.com/castholm/SDL
 
+```
 Copyright (c) 1990 RSA Data Security, Inc.
 Copyright (c) 1990-1992, 1999-2000, 2004, 2009-2010 Oracle and/or its affiliates
 Copyright (c) 1993 Sun Microsystems, Inc.
@@ -61,6 +63,7 @@ Copyright (c) 2025 Michal Malý <madcatxster@devoid-pointer.net>
 Copyright (c) 2025 Mitchell Cairns <mitch.cairns@handheldlegend.com>
 Copyright (c) 2025 Simon Wood <simon@mungewell.org>
 Copyright (c) 2025 Zuiki, Inc.
+```
 
 Follow this link for the full license text:
 
@@ -70,6 +73,7 @@ https://github.com/castholm/SDL/blob/release-3.4.x/LICENSE.txt
 
 https://github.com/nothings/stb
 
+```
 Copyright (c) 2017 Sean Barrett
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -89,11 +93,13 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```
 
 ### par_shapes.h
 
 https://github.com/prideout/par
 
+```
 Copyright (c) 2019 Philip Rideout
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -113,3 +119,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```
