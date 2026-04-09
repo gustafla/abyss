@@ -12,7 +12,9 @@
         "build.zig",
         "build.zig.zon",
         "src",
-        "README.md",
+        "shaders",
+        "shader_lib",
         "data",
+        "README.md",
     },
 }
