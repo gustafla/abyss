@@ -25,7 +25,6 @@ pub const config = struct {
     pub const main = @import("config.zon");
     pub const render: schema.Render = @import("render.zon");
     pub const timeline: schema.Timeline = @import("timeline.zon");
-    pub const aspect = config.main.width / config.main.height;
 };
 
 // ---- GLOBAL ----
@@ -145,7 +144,7 @@ pub const frame = struct {
             .vertex = .{
                 .view_projection = math.Mat4.perspective(
                     math.radians(state.camera.fov),
-                    config.aspect,
+                    util.aspectRatio(config.main),
                     config.main.near,
                     config.main.far,
                 ).mmul(view),
