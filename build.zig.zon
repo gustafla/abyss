@@ -16,5 +16,6 @@
         "shader_lib",
         "data",
         "README.md",
+        "LICENSE",
     },
 }
