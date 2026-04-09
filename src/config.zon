@@ -1,0 +1,14 @@
+.{
+    .data_dir = "data",
+    .shader_dir = "shaders",
+
+    .width = 814,
+    .height = 440,
+    .near = 1,
+    .far = 1024,
+    .max_lights = 64,
+
+    // Music: D2 by Amarent, BPM: 110, length: 352
+    .audio = "music.ogg",
+    .bpm = 110,
+}

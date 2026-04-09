@@ -1,36 +1,31 @@
 const std = @import("std");
 const Allocator = std.mem.Allocator;
 const builtin = @import("builtin");
-const options = @import("options");
 
-const config = @import("config.zon");
-
-const math = @import("math.zig");
+const engine = @import("engine");
+const c = engine.c;
+const types = engine.types;
+const math = engine.math;
 const Vec3 = math.Vec3;
 const Vec4 = math.Vec4;
+const Timeline = engine.timeline.Timeline;
 const vec3 = math.vec3;
-const c = @import("render/c.zig").c;
-const types = @import("render/types.zig");
-const resource = @import("resource.zig");
-const camera = @import("script/camera.zig");
-const udp = @import("udp.zig");
-const noise_zig = @import("script/noise.zig");
-const timeline = @import("script/timeline.zig");
+const resource = engine.resource;
+const camera = engine.camera;
+const noise_zig = engine.noise;
+const timeline = engine.timeline;
 pub const Clip = timeline.Clip;
-const util = @import("script/util.zig");
+const udp = engine.udp;
+const util = engine.util;
+const options = engine.options;
 
 // ---- CONFIG ----
 
 pub const config = struct {
-    pub const width = 814;
-    pub const height = 440;
-    pub const aspect = width / height;
-    pub const near = 1;
-    pub const far = 1024;
-
-    // Music: D2 by Amarent, BPM: 110, length: 352
-    pub const audio = "music.ogg";
-    pub const bpm = 110;
+    pub const main = @import("config.zon");
+    pub const render = @import("render.zon");
+    pub const timeline: Timeline = @import("timeline.zon");
+    pub const aspect = config.main.width / config.main.height;
 };
 
 // ---- GLOBAL ----
@@ -150,9 +145,9 @@ pub const frame = struct {
             .vertex = .{
                 .view_projection = math.Mat4.perspective(
                     math.radians(state.camera.fov),
-                    aspect,
-                    near,
-                    far,
+                    config.aspect,
+                    config.main.near,
+                    config.main.far,
                 ).mmul(view),
                 .camera_position = .{
                     state.camera.pos[0],
@@ -1029,7 +1024,7 @@ pub const storage_buffer = struct {
             _pad1: f32 = 0.0,
         };
 
-        const max_lights = config.max_lights;
+        const max_lights = config.main.max_lights;
 
         pub fn create() !u32 {
             return max_lights;
