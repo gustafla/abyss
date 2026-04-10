@@ -7,6 +7,22 @@ Released at Instanssi 2026
 - *code:* luutifa
 - *music:* Amarent
 
+## How to Build
+
+Source code available at: https://github.com/gustafla/abyss
+Engine repository: https://github.com/gustafla/mehustin2
+
+The Zig Build System handles builds for multiple platforms:
+
+```
+zig build -Doptimize=ReleaseSmall -Dtarget=x86_64-linux-gnu
+zig build -Doptimize=ReleaseSmall -Dtarget=x86_64-windows-gnu
+zig build -Doptimize=ReleaseSmall -Dtarget=aarch64-linux-gnu
+```
+
+The complete demo package with binaries, data files and README is output to
+`zig-out/bin`.
+
 ## Music License
 
 - *Title:*   D2
