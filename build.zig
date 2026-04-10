@@ -6,16 +6,13 @@ pub fn build(b: *std.Build) void {
     const options = engine.Options.init(b);
     const engine_dep = b.dependency("mehustin2", options);
 
-    const engine_mod = engine_dep.module("engine");
+    // Create script module
     const script_mod = b.createModule(.{
         .root_source_file = b.path("src/script.zig"),
     });
 
     // Hook up module dependencies
-    script_mod.addImport("engine", engine_mod);
-    engine_mod.addImport("script", script_mod);
-    engine_dep.module("render").addImport("script", script_mod);
-    engine_dep.module("exe").addImport("script", script_mod);
+    engine.importScript(engine_dep, script_mod);
 
     // Compile and install shaders
     engine.compileShaders(b, engine_dep, @import("src/config.zon"));
