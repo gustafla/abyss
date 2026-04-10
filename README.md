@@ -13,6 +13,10 @@ Source code available at: https://github.com/gustafla/abyss
 
 Engine repository: https://github.com/gustafla/mehustin2
 
+System dependencies:
+- Zig 0.15.2
+- glslc
+
 The Zig Build System handles builds for multiple platforms:
 
 ```
