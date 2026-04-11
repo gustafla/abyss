@@ -5,6 +5,8 @@ const builtin = @import("builtin");
 const engine = @import("engine");
 const c = engine.c;
 const types = engine.types;
+const TextureInfo = types.TextureInfo;
+const BufferInfo = types.BufferInfo;
 const math = engine.math;
 const Vec3 = math.Vec3;
 const Vec4 = math.Vec4;
@@ -14,7 +16,6 @@ const resource = engine.resource;
 const camera = engine.camera;
 const noise_zig = engine.noise;
 const timeline = engine.timeline;
-pub const Clip = timeline.Clip;
 const udp = engine.udp;
 const util = engine.util;
 const options = engine.options;
@@ -29,7 +30,7 @@ pub const config = struct {
 
 // ---- GLOBAL ----
 
-pub var gpa: Allocator = undefined;
+var gpa: Allocator = undefined;
 
 pub fn init(init_gpa: Allocator) void {
     gpa = init_gpa;
@@ -82,7 +83,7 @@ pub const frame = struct {
     };
 
     pub const State = struct {
-        clip: Clip,
+        clip: timeline.Clip,
         vertex: VertexUniforms,
         fragment: FragmentUniforms,
         clear_color: [4]f32 = .{ 0, 0, 0, 1 },
@@ -176,17 +177,8 @@ const noise_size: usize = 64;
 var sky_color: Vec4 = @splat(0.0);
 const sun_dir = vec3.normalize(.{ 1, 0.5, 1 });
 
-pub const TextureInfo = struct {
-    tex_type: types.TextureType = .@"2d",
-    format: types.TextureFormat,
-    width: u32,
-    height: u32,
-    depth: u32 = 1,
-    mip_levels: u32 = 1,
-};
-
 pub const texture = struct {
-    pub const font_atlas = timeline.font_atlas;
+    pub const font_atlas = timeline.FontAtlas(&gpa);
 
     pub const noise = struct {
         pub fn create() !TextureInfo {
@@ -362,11 +354,6 @@ pub const layout = struct {
             }
         }
     }
-};
-
-pub const BufferInfo = struct {
-    num_elements: u32,
-    first_element: u32 = 0,
 };
 
 pub const buffer = struct {
