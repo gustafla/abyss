@@ -67,32 +67,9 @@ pub const String = std.meta.DeclEnum(string);
 // ---- FRAME DATA (1st) ----
 
 pub const frame = struct {
-    pub const VertexUniforms = extern struct {
-        view_projection: math.Mat4,
-        camera_position: [4]f32,
-        camera_right: [4]f32,
-        camera_up: [4]f32,
-        global_time: f32,
-    };
-
-    pub const FragmentUniforms = extern struct {
-        global_time: f32,
-        clip_time: f32,
-        clip_remaining_time: f32,
-        clip_length: f32,
-    };
-
-    pub const State = struct {
-        clip: timeline.Clip,
-        vertex: VertexUniforms,
-        fragment: FragmentUniforms,
-        clear_color: [4]f32 = .{ 0, 0, 0, 1 },
-    };
-
-    pub var time: f32 = undefined;
     pub var state: timeline.State = undefined;
 
-    pub fn update(frame_time: f32) State {
+    pub fn update(time: f32) timeline.State {
         var buf: []u8 = &str_buf;
         if (options.show_fps) {
             frames += 1;
@@ -105,20 +82,12 @@ pub const frame = struct {
             buf = buf[string.fps.len..];
         }
 
-        time = frame_time;
-
         state = timeline.resolve(time);
 
         if (builtin.mode == .Debug) {
-            string.time = std.fmt.bufPrint(buf, "{t} {:.1}", .{ state.clip, time }) catch unreachable;
+            string.time = std.fmt.bufPrint(buf, "{t} {:.1}", .{ state.clip, state.time }) catch unreachable;
             buf = buf[string.time.len..];
         }
-
-        const view = math.Mat4.lookAt(
-            state.camera.pos,
-            state.camera.target,
-            math.radians(state.camera.roll),
-        );
 
         // Update partyhall lights
         if (options.udp_client) {
@@ -141,32 +110,7 @@ pub const frame = struct {
             udp.updateLights(.{color} ** 24) catch std.log.err("UDP send failed", .{});
         }
 
-        return .{
-            .vertex = .{
-                .view_projection = math.Mat4.perspective(
-                    math.radians(state.camera.fov),
-                    util.aspectRatio(config.main),
-                    config.main.near,
-                    config.main.far,
-                ).mmul(view),
-                .camera_position = .{
-                    state.camera.pos[0],
-                    state.camera.pos[1],
-                    state.camera.pos[2],
-                    1,
-                },
-                .camera_right = .{ view.col[0][0], view.col[1][0], view.col[2][0], 0 },
-                .camera_up = .{ view.col[0][1], view.col[1][1], view.col[2][1], 0 },
-                .global_time = time,
-            },
-            .fragment = .{
-                .global_time = time,
-                .clip_time = state.clip_time,
-                .clip_remaining_time = state.clip_remaining_time,
-                .clip_length = state.clip_length,
-            },
-            .clip = state.clip,
-        };
+        return state;
     }
 };
 
@@ -193,7 +137,7 @@ pub const texture = struct {
             for (0..noise_size) |y| {
                 for (0..noise_size) |x| {
                     const scale = 0.5;
-                    const hash = std.hash.int(@as(u32, @bitCast(frame.time)));
+                    const hash = std.hash.int(@as(u32, @bitCast(frame.state.time)));
                     const noise_val = noise_zig.simplex2(
                         (@as(f32, @floatFromInt(x)) * scale) + @as(f32, @floatFromInt(hash & 0x7fff)),
                         (@as(f32, @floatFromInt(y)) * scale),
@@ -649,8 +593,8 @@ pub const buffer = struct {
         pub fn updateData(dst: []Layout) !void {
             for (dst, 0..) |*inst, i| {
                 const dt = 1.0 / 60.0;
-                const pos0 = position(i, frame.time);
-                const pos1 = position(i, frame.time + dt);
+                const pos0 = position(i, frame.state.time);
+                const pos1 = position(i, frame.state.time + dt);
                 const col = color(i);
                 inst.* = .{
                     .pos_scale = .{
@@ -868,7 +812,7 @@ pub const buffer = struct {
                 inst.* = .{
                     .pos_scale = .{
                         r.float(f32) * 200 - 100,
-                        -1000 + r.float(f32) * 200 + @sin(frame.time * 0.523 * r.float(f32)) * 2 * r.float(f32),
+                        -1000 + r.float(f32) * 200 + @sin(frame.state.time * 0.523 * r.float(f32)) * 2 * r.float(f32),
                         r.float(f32) * 200 - 100,
                         3.0 + r.float(f32) * 8.0,
                     },
@@ -876,7 +820,7 @@ pub const buffer = struct {
                         r.float(f32) * 2 - 1.0,
                         r.float(f32) * 2 - 1.0,
                         r.float(f32) * 2 - 1.0,
-                    }), frame.time * r.float(f32) * 0.2),
+                    }), frame.state.time * r.float(f32) * 0.2),
                 };
             }
         }
@@ -1034,7 +978,7 @@ pub const storage_buffer = struct {
             for (lights[0..header.count], 0..) |*light, i| {
                 const color = buffer.jellyfish_inst.color(i);
                 light.* = .{
-                    .position = buffer.jellyfish_inst.position(i, frame.time),
+                    .position = buffer.jellyfish_inst.position(i, frame.state.time),
                     .color = color * @as(Vec3, @splat(buffer.jellyfish_inst.scale(i))),
                 };
             }
