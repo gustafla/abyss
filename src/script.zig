@@ -31,6 +31,8 @@ pub const config = struct {
 // ---- GLOBAL ----
 
 var gpa: Allocator = undefined;
+var threaded_io: std.Io.Threaded = .init_single_threaded;
+const io = threaded_io.io();
 
 pub fn init(init_gpa: Allocator) void {
     gpa = init_gpa;
@@ -122,7 +124,7 @@ var sky_color: Vec4 = @splat(0.0);
 const sun_dir = vec3.normalize(.{ 1, 0.5, 1 });
 
 pub const texture = struct {
-    pub const font_atlas = timeline.FontAtlas(&gpa);
+    pub const font_atlas = timeline.FontAtlas(&io, &gpa);
 
     pub const noise = struct {
         pub fn create() !TextureInfo {
