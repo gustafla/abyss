@@ -127,13 +127,11 @@ pub const texture = struct {
     pub const font_atlas = timeline.FontAtlas(&io, &gpa);
 
     pub const noise = struct {
-        pub fn create() !TextureInfo {
-            return .{
-                .format = .r8_unorm,
-                .width = noise_size,
-                .height = noise_size,
-            };
-        }
+        pub const info: TextureInfo = .{
+            .format = .r8_unorm,
+            .width = noise_size,
+            .height = noise_size,
+        };
 
         pub fn updateData(dst: []u8) !void {
             for (0..noise_size) |y| {
@@ -307,15 +305,11 @@ pub const buffer = struct {
 
     pub const water_surface_ind = struct {
         const per_row = (surf_grid.w + 1) * 2;
-        const num_indices = (per_row * surf_grid.d) + (surf_grid.d - 1) * 2;
+        pub const num_elements = (per_row * surf_grid.d) + (surf_grid.d - 1) * 2;
 
         pub const Layout = u32;
 
-        pub fn create() !u32 {
-            return num_indices;
-        }
-
-        pub fn init(dst: []Layout) !BufferInfo {
+        pub fn init(dst: []Layout, _: *BufferInfo) !void {
             var i: usize = 0;
             for (0..surf_grid.d) |z| {
                 const row_current = z * surf_num_verts_x;
@@ -339,10 +333,7 @@ pub const buffer = struct {
                     i += 1;
                 }
             }
-
-            std.debug.assert(i == num_indices);
-
-            return .{ .num_elements = num_indices };
+            std.debug.assert(i == num_elements);
         }
     };
 
@@ -355,7 +346,7 @@ pub const buffer = struct {
             return num_vertices;
         }
 
-        pub fn init(dst: []Layout) !BufferInfo {
+        pub fn init(dst: []Layout, _: *BufferInfo) !void {
             var i: usize = 0;
             for (0..surf_num_verts_z) |z| {
                 for (0..surf_num_verts_x) |x| {
@@ -367,8 +358,6 @@ pub const buffer = struct {
                     i += 1;
                 }
             }
-
-            return .{ .num_elements = num_vertices };
         }
     };
 
@@ -381,14 +370,13 @@ pub const buffer = struct {
             return num_tris * 3;
         }
 
-        pub fn init(dst: []Layout) !BufferInfo {
+        pub fn init(dst: []Layout, _: *BufferInfo) !void {
             for (0..num_tris) |tri| {
                 const i = tri * 3;
                 dst[i] = 0;
                 dst[i + 1] = @intCast(1 + (tri + 0) % num_tris);
                 dst[i + 2] = @intCast(1 + (tri + 1) % num_tris);
             }
-            return .{ .num_elements = num_tris * 3 };
         }
     };
 
@@ -402,7 +390,7 @@ pub const buffer = struct {
             return 1 + num_vertices;
         }
 
-        pub fn init(dst: []Layout) !BufferInfo {
+        pub fn init(dst: []Layout, _: *BufferInfo) !void {
             dst[0] = .{
                 .position = .{ 0, 1, 0 },
             };
@@ -413,8 +401,6 @@ pub const buffer = struct {
                     .position = .{ @cos(t) * radius, 0, @sin(t) * radius },
                 };
             }
-
-            return .{ .num_elements = 1 + num_vertices };
         }
     };
 
@@ -427,35 +413,30 @@ pub const buffer = struct {
             return num_inst;
         }
 
-        pub fn init(dst: []Layout) !BufferInfo {
+        pub fn init(dst: []Layout, _: *BufferInfo) !void {
             const rot = math.quat.rotationBetween(vec3.YUP, sun_dir);
             dst[0] = .{
                 .pos_scale = .{ 0, -10, 0, 64 * 8 },
                 .rot_quat = rot,
             };
-
-            return .{ .num_elements = num_inst };
         }
     };
 
     pub const particle_inst = struct {
         pub const Layout = void;
 
-        pub fn updateInfo() BufferInfo {
-            return .{
-                .first_element = 0,
-                .num_elements = switch (frame.state.clip) {
-                    .surface => 64,
-                    .descent => 64 +
-                        @as(u32, @intFromFloat((8192 - 64) *
-                            math.smoothstep(
-                                frame.state.clip_time / frame.state.clip_length,
-                            ))),
-                    .void => @as(u32, @intFromFloat(
-                        8192 * std.math.clamp(frame.state.clip_remaining_time / frame.state.clip_length - 0.5, 0, 1),
-                    )),
-                    else => 8192,
-                },
+        pub fn updateInfo(info: *BufferInfo) void {
+            info.num_elements = switch (frame.state.clip) {
+                .surface => 64,
+                .descent => 64 +
+                    @as(u32, @intFromFloat((8192 - 64) *
+                        math.smoothstep(
+                            frame.state.clip_time / frame.state.clip_length,
+                        ))),
+                .void => @as(u32, @intFromFloat(
+                    8192 * std.math.clamp(frame.state.clip_remaining_time / frame.state.clip_length - 0.5, 0, 1),
+                )),
+                else => 8192,
             };
         }
     };
@@ -470,7 +451,7 @@ pub const buffer = struct {
             return 1 + size_u * (size_v - 1);
         }
 
-        pub fn init(dst: []Layout) !BufferInfo {
+        pub fn init(dst: []Layout, _: *BufferInfo) !void {
             dst[0] = .{ .position = .{ 0, 0.5, 0 } };
 
             for (1..size_v) |vu| {
@@ -489,10 +470,6 @@ pub const buffer = struct {
                     dst[1 + (vu - 1) * size_u + uu] = .{ .position = .{ x, y, z } };
                 }
             }
-
-            return .{
-                .num_elements = @intCast(dst.len),
-            };
         }
     };
 
@@ -503,7 +480,7 @@ pub const buffer = struct {
             return 3 * jellyfish.size_u + 6 * jellyfish.size_u * (jellyfish.size_v - 1);
         }
 
-        pub fn init(dst: []Layout) !BufferInfo {
+        pub fn init(dst: []Layout, _: *BufferInfo) !void {
             for (0..jellyfish.size_u) |tri| {
                 dst[tri * 3 + 0] = 0;
                 dst[tri * 3 + 1] = @intCast(1 + tri);
@@ -530,10 +507,6 @@ pub const buffer = struct {
                     dst[base + ring + quad + 5] = v_0 + u_1;
                 }
             }
-
-            return .{
-                .num_elements = @intCast(dst.len),
-            };
         }
     };
 
@@ -548,7 +521,7 @@ pub const buffer = struct {
             return 6 + beam_mesh.size(subdiv);
         }
 
-        pub fn init(dst: []Layout) !BufferInfo {
+        pub fn init(dst: []Layout, _: *BufferInfo) !void {
             beam_mesh.init(dst[0 .. dst.len - 6], segment_length);
 
             dst[dst.len - 6] = .{ .position = .{ 0, 0.5, 0 }, .uv0 = .{ 0.5, 0 } };
@@ -558,10 +531,6 @@ pub const buffer = struct {
             dst[dst.len - 3] = .{ .position = .{ 0, 0.5, 0 }, .uv0 = .{ 0.5, 0 } };
             dst[dst.len - 2] = .{ .position = .{ 0, 0.2, -0.25 }, .uv0 = .{ 0, 0 } };
             dst[dst.len - 1] = .{ .position = .{ 0, 0.2, 0.25 }, .uv0 = .{ 1, 0 } };
-
-            return .{
-                .num_elements = @intCast(dst.len),
-            };
         }
     };
 
@@ -575,7 +544,7 @@ pub const buffer = struct {
             return n;
         }
 
-        pub fn init(dst: []Layout) !BufferInfo {
+        pub fn init(dst: []Layout, _: *BufferInfo) !void {
             _ = dst;
 
             var rng: std.Random.Xoshiro256 = .init(1236);
@@ -588,8 +557,6 @@ pub const buffer = struct {
                 };
                 pos.* = cube * @as(Vec3, @splat(2.0)) - @as(Vec3, @splat(1.0));
             }
-
-            return .{ .num_elements = n };
         }
 
         pub fn updateData(dst: []Layout) !void {
@@ -651,19 +618,17 @@ pub const buffer = struct {
             return util.hslToRgb(.{ 30 + t * 100, 1, 10 });
         }
 
-        pub fn updateInfo() BufferInfo {
-            return .{
-                .num_elements = switch (frame.state.clip) {
-                    .surface, .descent => 0,
-                    .garden => @intFromFloat(n * math.smoothstep(
-                        std.math.clamp(
-                            (frame.state.clip_time * 16) / frame.state.clip_length,
-                            0,
-                            1,
-                        ),
-                    )),
-                    else => n,
-                },
+        pub fn updateInfo(info: *BufferInfo) void {
+            info.num_elements = switch (frame.state.clip) {
+                .surface, .descent => 0,
+                .garden => @intFromFloat(n * math.smoothstep(
+                    std.math.clamp(
+                        (frame.state.clip_time * 16) / frame.state.clip_length,
+                        0,
+                        1,
+                    ),
+                )),
+                else => n,
             };
         }
     };
@@ -708,14 +673,11 @@ pub const buffer = struct {
             return nverts;
         }
 
-        pub fn init(dst: []Layout) !BufferInfo {
+        pub fn init(dst: []Layout, _: *BufferInfo) !void {
             util.interleave(Layout, dst, .{
                 mesh.points[0 .. nverts * 3],
                 mesh.normals[0 .. nverts * 3],
             });
-            return .{
-                .num_elements = nverts,
-            };
         }
     };
 
@@ -726,12 +688,9 @@ pub const buffer = struct {
             return seafloor.ninds;
         }
 
-        pub fn init(dst: []Layout) !BufferInfo {
+        pub fn init(dst: []Layout, _: *BufferInfo) !void {
             @memcpy(dst, seafloor.mesh.triangles);
             c.par_shapes_free_mesh(seafloor.mesh);
-            return .{
-                .num_elements = @intCast(dst.len),
-            };
         }
     };
 
@@ -744,7 +703,7 @@ pub const buffer = struct {
             return n;
         }
 
-        pub fn init(dst: []Layout) !BufferInfo {
+        pub fn init(dst: []Layout, _: *BufferInfo) !void {
             var rng: std.Random.Xoshiro256 = .init(4123);
             const r = rng.random();
             for (dst) |*inst| {
@@ -756,9 +715,6 @@ pub const buffer = struct {
                     },
                 };
             }
-            return .{
-                .num_elements = @intCast(dst.len),
-            };
         }
     };
 
@@ -772,14 +728,11 @@ pub const buffer = struct {
             return @intCast(mesh.npoints);
         }
 
-        pub fn init(dst: []Layout) !BufferInfo {
+        pub fn init(dst: []Layout, _: *BufferInfo) !void {
             util.interleave(Layout, dst, .{
                 mesh.points[0 .. dst.len * 3],
                 mesh.normals[0 .. dst.len * 3],
             });
-            return .{
-                .num_elements = @intCast(dst.len),
-            };
         }
     };
 
@@ -791,11 +744,8 @@ pub const buffer = struct {
             return @intCast(mesh.*.ntriangles * 3);
         }
 
-        pub fn init(dst: []Layout) !BufferInfo {
+        pub fn init(dst: []Layout, _: *BufferInfo) !void {
             @memcpy(dst, mesh.*.triangles[0..dst.len]);
-            return .{
-                .num_elements = @intCast(dst.len),
-            };
         }
     };
 
@@ -827,12 +777,10 @@ pub const buffer = struct {
             }
         }
 
-        pub fn updateInfo() BufferInfo {
-            return .{
-                .num_elements = switch (frame.state.clip) {
-                    .currents => n,
-                    else => 0,
-                },
+        pub fn updateInfo(info: *BufferInfo) void {
+            info.num_elements = switch (frame.state.clip) {
+                .currents => n,
+                else => 0,
             };
         }
     };
@@ -847,12 +795,8 @@ pub const buffer = struct {
             return beam_mesh.size(subdiv);
         }
 
-        pub fn init(dst: []Layout) !BufferInfo {
+        pub fn init(dst: []Layout, _: *BufferInfo) !void {
             beam_mesh.init(dst, segment_length);
-
-            return .{
-                .num_elements = @intCast(dst.len),
-            };
         }
     };
 
@@ -865,7 +809,7 @@ pub const buffer = struct {
             return n;
         }
 
-        pub fn init(dst: []Layout) !BufferInfo {
+        pub fn init(dst: []Layout, _: *BufferInfo) !void {
             dst[0] = .{
                 .pos_scale = .{ 100, -995, -10, 5 },
                 .rot_quat = math.quat.rotationBetween(vec3.YUP, vec3.XUP),
@@ -877,9 +821,6 @@ pub const buffer = struct {
             dst[2] = .{
                 .pos_scale = .{ 10, -930, 100, 5 },
                 .rot_quat = math.quat.rotationBetween(vec3.YUP, vec3.ZUP),
-            };
-            return .{
-                .num_elements = @intCast(dst.len),
             };
         }
     };
@@ -894,7 +835,7 @@ pub const buffer = struct {
             return n;
         }
 
-        pub fn init(dst: []Layout) !BufferInfo {
+        pub fn init(dst: []Layout, _: *BufferInfo) !void {
             var rng: std.Random.Xoshiro256 = .init(41223);
             const r = rng.random();
 
@@ -907,9 +848,6 @@ pub const buffer = struct {
                     },
                 };
             }
-            return .{
-                .num_elements = @intCast(dst.len),
-            };
         }
     };
 };
@@ -963,7 +901,10 @@ pub const storage_buffer = struct {
         }
 
         pub fn updateData(dst: []u8) !void {
-            const num_lights = buffer.jellyfish_inst.updateInfo().num_elements;
+            var info: BufferInfo = undefined;
+            buffer.jellyfish_inst.updateInfo(&info);
+            const num_lights = info.num_elements;
+
             const ambient_factor = @as(f32, @floatFromInt(num_lights)) /
                 @as(f32, @floatFromInt(buffer.jellyfish_inst.n));
             const ambient_clip: f32 = switch (frame.state.clip) {
