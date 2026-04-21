@@ -25,8 +25,10 @@
                     .{
                         .condition = .{.surface},
                         .pipelines = .{.{
-                            .vert = .{ .file = "water_surface.vert" },
-                            .frag = .{ .file = "water_surface.frag" },
+                            .shader = .{ .stages = .{
+                                .vert = .{ .file = "water_surface.vert" },
+                                .frag = .{ .file = "water_surface.frag" },
+                            } },
                             .primitive_type = .trianglestrip,
                             .rasterizer_state = .{ .cull_mode = .none },
                             .depth_test = .{ .enable = true },
@@ -43,8 +45,10 @@
                     .{
                         .condition = .{ .surface, .descent },
                         .pipelines = .{.{
-                            .vert = .{ .file = "tri.vert" },
-                            .frag = .{ .file = "water_volume.frag" },
+                            .shader = .{ .stages = .{
+                                .vert = .{ .file = "tri.vert" },
+                                .frag = .{ .file = "water_volume.frag" },
+                            } },
                             .depth_test = .{ .enable = true },
                         }},
                         .fragment_storage_buffers = .{"water_parameters"},
@@ -53,8 +57,10 @@
                     .{
                         .condition = .{.surface},
                         .pipelines = .{.{
-                            .vert = .{ .file = "light_shaft.vert" },
-                            .frag = .{ .file = "light_shaft.frag" },
+                            .shader = .{ .stages = .{
+                                .vert = .{ .file = "light_shaft.vert" },
+                                .frag = .{ .file = "light_shaft.frag" },
+                            } },
                             .primitive_type = .trianglelist,
                             .rasterizer_state = .{ .cull_mode = .none },
                             .depth_test = .{ .enable = true, .write = false },
@@ -73,8 +79,10 @@
                     .{
                         .condition = .{ .surface, .descent },
                         .pipelines = .{.{
-                            .vert = .{ .file = "bubble.vert" },
-                            .frag = .{ .file = "bubble.frag" },
+                            .shader = .{ .stages = .{
+                                .vert = .{ .file = "bubble.vert" },
+                                .frag = .{ .file = "bubble.frag" },
+                            } },
                             .primitive_type = .trianglestrip,
                             .rasterizer_state = .{ .cull_mode = .none },
                             // .depth_test = .{ .enable = true, .write = false },
@@ -92,8 +100,10 @@
                     .{
                         .condition = .{.descent},
                         .pipelines = .{.{
-                            .vert = .{ .file = "static_tris.vert" },
-                            .frag = .{ .file = "diffuse.frag" },
+                            .shader = .{ .stages = .{
+                                .vert = .{ .file = "static_tris.vert" },
+                                .frag = .{ .file = "diffuse.frag" },
+                            } },
                             .primitive_type = .trianglelist,
                             .depth_test = .{ .enable = true },
                             .blend_states = .{.{
@@ -108,8 +118,10 @@
                     .{
                         .condition = .{ .garden, .currents, .void },
                         .pipelines = .{.{
-                            .vert = .{ .file = "jellyfish.vert" },
-                            .frag = .{ .file = "jellyfish.frag" },
+                            .shader = .{ .stages = .{
+                                .vert = .{ .file = "jellyfish.vert" },
+                                .frag = .{ .file = "jellyfish.frag" },
+                            } },
                             .primitive_type = .trianglelist,
                             .rasterizer_state = .{ .cull_mode = .none },
                             .depth_test = .{ .enable = true },
@@ -122,8 +134,10 @@
                     .{
                         .condition = .{ .garden, .currents, .void },
                         .pipelines = .{.{
-                            .vert = .{ .file = "static_tris.vert" },
-                            .frag = .{ .file = "diffuse.frag" },
+                            .shader = .{ .stages = .{
+                                .vert = .{ .file = "static_tris.vert" },
+                                .frag = .{ .file = "diffuse.frag" },
+                            } },
                             .primitive_type = .trianglelist,
                             .depth_test = .{ .enable = true },
                         }},
@@ -135,8 +149,10 @@
                     .{
                         .condition = .{.currents},
                         .pipelines = .{.{
-                            .vert = .{ .file = "3d.vert" },
-                            .frag = .{ .file = "diffuse.frag" },
+                            .shader = .{ .stages = .{
+                                .vert = .{ .file = "3d.vert" },
+                                .frag = .{ .file = "diffuse.frag" },
+                            } },
                             .primitive_type = .trianglelist,
                             .depth_test = .{ .enable = true },
                         }},
@@ -149,8 +165,10 @@
                     .{
                         .condition = .{.garden},
                         .pipelines = .{.{
-                            .vert = .{ .file = "dustcloud.vert" },
-                            .frag = .{ .file = "dustcloud.frag" },
+                            .shader = .{ .stages = .{
+                                .vert = .{ .file = "dustcloud.vert" },
+                                .frag = .{ .file = "dustcloud.frag" },
+                            } },
                             .primitive_type = .trianglestrip,
                             .depth_test = .{ .enable = true, .write = false },
                             .blend_states = .{.{
@@ -167,8 +185,10 @@
                     .{
                         .condition = .{ .garden, .currents, .void },
                         .pipelines = .{.{
-                            .vert = .{ .file = "tentacle.vert" },
-                            .frag = .{ .file = "tentacle.frag" },
+                            .shader = .{ .stages = .{
+                                .vert = .{ .file = "tentacle.vert" },
+                                .frag = .{ .file = "tentacle.frag" },
+                            } },
                             .primitive_type = .trianglelist,
                             .rasterizer_state = .{ .cull_mode = .none },
                             .depth_test = .{ .enable = true, .write = false },
@@ -185,8 +205,10 @@
                     .{
                         .condition = .{.currents},
                         .pipelines = .{.{
-                            .vert = .{ .file = "ribbon.vert" },
-                            .frag = .{ .file = "ribbon.frag" },
+                            .shader = .{ .stages = .{
+                                .vert = .{ .file = "ribbon.vert" },
+                                .frag = .{ .file = "ribbon.frag" },
+                            } },
                             .primitive_type = .trianglelist,
                             .rasterizer_state = .{ .cull_mode = .none },
                             .depth_test = .{ .enable = true, .write = false },
@@ -202,8 +224,10 @@
                     // Particles
                     .{
                         .pipelines = .{.{
-                            .vert = .{ .file = "particle.vert" },
-                            .frag = .{ .file = "particle.frag" },
+                            .shader = .{ .stages = .{
+                                .vert = .{ .file = "particle.vert" },
+                                .frag = .{ .file = "particle.frag" },
+                            } },
                             .primitive_type = .trianglestrip,
                             .depth_test = .{ .enable = true, .write = false },
                             .blend_states = .{.{
@@ -229,8 +253,10 @@
             .drawcalls = .{
                 .{
                     .pipelines = .{.{
-                        .vert = .{ .file = "tri.vert" },
-                        .frag = .{ .file = "bloom_prefilter.frag" },
+                        .shader = .{ .stages = .{
+                            .vert = .{ .file = "tri.vert" },
+                            .frag = .{ .file = "bloom_prefilter.frag" },
+                        } },
                     }},
                     .fragment_samplers = .{.{ .texture = "color_targets[1]", .sampler = "linear" }},
                 },
@@ -242,8 +268,10 @@
             .drawcalls = .{
                 .{
                     .pipelines = .{.{
-                        .vert = .{ .file = "tri.vert" },
-                        .frag = .{ .file = "dual_kawase_down.frag" },
+                        .shader = .{ .stages = .{
+                            .vert = .{ .file = "tri.vert" },
+                            .frag = .{ .file = "dual_kawase_down.frag" },
+                        } },
                     }},
                     .fragment_samplers = .{.{ .texture = "color_targets[2]", .sampler = "linear" }},
                 },
@@ -255,8 +283,10 @@
             .drawcalls = .{
                 .{
                     .pipelines = .{.{
-                        .vert = .{ .file = "tri.vert" },
-                        .frag = .{ .file = "dual_kawase_down.frag" },
+                        .shader = .{ .stages = .{
+                            .vert = .{ .file = "tri.vert" },
+                            .frag = .{ .file = "dual_kawase_down.frag" },
+                        } },
                     }},
                     .fragment_samplers = .{.{ .texture = "color_targets[3]", .sampler = "linear" }},
                 },
@@ -268,8 +298,10 @@
             .drawcalls = .{
                 .{
                     .pipelines = .{.{
-                        .vert = .{ .file = "tri.vert" },
-                        .frag = .{ .file = "dual_kawase_down.frag" },
+                        .shader = .{ .stages = .{
+                            .vert = .{ .file = "tri.vert" },
+                            .frag = .{ .file = "dual_kawase_down.frag" },
+                        } },
                     }},
                     .fragment_samplers = .{.{ .texture = "color_targets[4]", .sampler = "linear" }},
                 },
@@ -281,8 +313,10 @@
             .drawcalls = .{
                 .{
                     .pipelines = .{.{
-                        .vert = .{ .file = "tri.vert" },
-                        .frag = .{ .file = "dual_kawase_down.frag" },
+                        .shader = .{ .stages = .{
+                            .vert = .{ .file = "tri.vert" },
+                            .frag = .{ .file = "dual_kawase_down.frag" },
+                        } },
                     }},
                     .fragment_samplers = .{.{ .texture = "color_targets[5]", .sampler = "linear" }},
                 },
@@ -294,8 +328,10 @@
             .drawcalls = .{
                 .{
                     .pipelines = .{.{
-                        .vert = .{ .file = "tri.vert" },
-                        .frag = .{ .file = "dual_kawase_down.frag" },
+                        .shader = .{ .stages = .{
+                            .vert = .{ .file = "tri.vert" },
+                            .frag = .{ .file = "dual_kawase_down.frag" },
+                        } },
                     }},
                     .fragment_samplers = .{.{ .texture = "color_targets[6]", .sampler = "linear" }},
                 },
@@ -308,8 +344,10 @@
                 .{
                     .pipelines = .{
                         .{
-                            .vert = .{ .file = "tri.vert" },
-                            .frag = .{ .file = "dual_kawase_up.frag" },
+                            .shader = .{ .stages = .{
+                                .vert = .{ .file = "tri.vert" },
+                                .frag = .{ .file = "dual_kawase_up.frag" },
+                            } },
                             .blend_states = .{.{
                                 .enable = true,
                                 .src_color = .one,
@@ -328,8 +366,10 @@
                 .{
                     .pipelines = .{
                         .{
-                            .vert = .{ .file = "tri.vert" },
-                            .frag = .{ .file = "dual_kawase_up.frag" },
+                            .shader = .{ .stages = .{
+                                .vert = .{ .file = "tri.vert" },
+                                .frag = .{ .file = "dual_kawase_up.frag" },
+                            } },
                             .blend_states = .{.{
                                 .enable = true,
                                 .src_color = .one,
@@ -348,8 +388,10 @@
                 .{
                     .pipelines = .{
                         .{
-                            .vert = .{ .file = "tri.vert" },
-                            .frag = .{ .file = "dual_kawase_up.frag" },
+                            .shader = .{ .stages = .{
+                                .vert = .{ .file = "tri.vert" },
+                                .frag = .{ .file = "dual_kawase_up.frag" },
+                            } },
                             .blend_states = .{.{
                                 .enable = true,
                                 .src_color = .one,
@@ -368,8 +410,10 @@
                 .{
                     .pipelines = .{
                         .{
-                            .vert = .{ .file = "tri.vert" },
-                            .frag = .{ .file = "dual_kawase_up.frag" },
+                            .shader = .{ .stages = .{
+                                .vert = .{ .file = "tri.vert" },
+                                .frag = .{ .file = "dual_kawase_up.frag" },
+                            } },
                             .blend_states = .{.{
                                 .enable = true,
                                 .src_color = .one,
@@ -388,8 +432,10 @@
                 .{
                     .pipelines = .{
                         .{
-                            .vert = .{ .file = "tri.vert" },
-                            .frag = .{ .file = "dual_kawase_up.frag" },
+                            .shader = .{ .stages = .{
+                                .vert = .{ .file = "tri.vert" },
+                                .frag = .{ .file = "dual_kawase_up.frag" },
+                            } },
                             .blend_states = .{.{
                                 .enable = true,
                                 .src_color = .one,
@@ -408,8 +454,10 @@
                 .drawcalls = .{
                     .{
                         .pipelines = .{.{
-                            .vert = .{ .file = "tri.vert" },
-                            .frag = .{ .file = "post.frag" },
+                            .shader = .{ .stages = .{
+                                .vert = .{ .file = "tri.vert" },
+                                .frag = .{ .file = "post.frag" },
+                            } },
                         }},
                         .fragment_samplers = .{
                             .{ .texture = "color_targets[1]", .sampler = "nearest" },
@@ -421,8 +469,10 @@
                     .{
                         .condition = .{.void},
                         .pipelines = .{.{
-                            .vert = .{ .file = "tri.vert" },
-                            .frag = .{ .file = "fade.frag" },
+                            .shader = .{ .stages = .{
+                                .vert = .{ .file = "tri.vert" },
+                                .frag = .{ .file = "fade.frag" },
+                            } },
                             .blend_states = .{.{
                                 .enable = true,
                                 .src_color = .src_alpha,
@@ -434,8 +484,10 @@
                     .{
                         .pipelines = .{
                             .{
-                                .vert = .{ .file = "text.vert" },
-                                .frag = .{ .file = "text_shadow.frag" },
+                                .shader = .{ .stages = .{
+                                    .vert = .{ .file = "text.vert" },
+                                    .frag = .{ .file = "text_shadow.frag" },
+                                } },
                                 .primitive_type = .trianglestrip,
                                 .blend_states = .{.{
                                     .enable = true,
@@ -449,8 +501,10 @@
                     .{
                         .pipelines = .{
                             .{
-                                .vert = .{ .file = "text.vert" },
-                                .frag = .{ .file = "text.frag" },
+                                .shader = .{ .stages = .{
+                                    .vert = .{ .file = "text.vert" },
+                                    .frag = .{ .file = "text.frag" },
+                                } },
                                 .primitive_type = .trianglestrip,
                                 .blend_states = .{.{
                                     .enable = true,
