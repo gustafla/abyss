@@ -55,10 +55,6 @@ pub const Anchor = std.meta.DeclEnum(anchor);
 
 // ---- STRINGS ----
 
-var frames: u32 = 0;
-var fps_ticks: u64 = 0;
-var str_buf: [128]u8 = undefined;
-
 pub const string = struct {
     pub var fps: []const u8 = "";
     pub var time: []const u8 = "";
@@ -72,24 +68,9 @@ pub const frame = struct {
     pub var state: timeline.State = undefined;
 
     pub fn update(time: f32) timeline.State {
-        var buf: []u8 = &str_buf;
-        if (options.show_fps) {
-            frames += 1;
-            const ticks = c.SDL_GetTicksNS();
-            if (fps_ticks + c.SDL_NS_PER_SECOND < ticks) {
-                string.fps = std.fmt.bufPrint(buf, "FPS: {}", .{frames}) catch unreachable;
-                fps_ticks = ticks;
-                frames = 0;
-            }
-            buf = buf[string.fps.len..];
-        }
-
         state = timeline.resolve(time);
 
-        if (builtin.mode == .Debug) {
-            string.time = std.fmt.bufPrint(buf, "{t} {:.1}", .{ state.clip, state.time }) catch unreachable;
-            buf = buf[string.time.len..];
-        }
+        util.updateDebugStrings(state, &string.fps, &string.time);
 
         // Update partyhall lights
         if (options.udp_client) {
@@ -426,18 +407,22 @@ pub const buffer = struct {
         pub const Layout = void;
 
         pub fn updateInfo(info: *BufferInfo) void {
-            info.num_elements = switch (frame.state.clip) {
-                .surface => 64,
-                .descent => 64 +
-                    @as(u32, @intFromFloat((8192 - 64) *
-                        math.smoothstep(
-                            frame.state.clip_time / frame.state.clip_length,
-                        ))),
-                .void => @as(u32, @intFromFloat(
-                    8192 * std.math.clamp(frame.state.clip_remaining_time / frame.state.clip_length - 0.5, 0, 1),
-                )),
-                else => 8192,
-            };
+            var num: u32 = 8192;
+            if (frame.state.tags.contains(.surface)) {
+                num = 64;
+            } else if (frame.state.tags.contains(.descent)) {
+                num = 64 + @as(u32, @intFromFloat(@as(f32, @floatFromInt(8192 - 64)) *
+                    math.smoothstep(frame.state.tag_times.get(.descent) /
+                        frame.state.tag_durations.get(.descent))));
+            } else if (frame.state.tags.contains(.void)) {
+                num = @as(u32, @intFromFloat(8192 * std.math.clamp(
+                    frame.state.tag_times_remaining.get(.void) /
+                        frame.state.tag_durations.get(.void) - 0.5,
+                    0,
+                    1,
+                )));
+            }
+            info.num_elements = num;
         }
     };
 
@@ -619,17 +604,20 @@ pub const buffer = struct {
         }
 
         pub fn updateInfo(info: *BufferInfo) void {
-            info.num_elements = switch (frame.state.clip) {
-                .surface, .descent => 0,
-                .garden => @intFromFloat(n * math.smoothstep(
+            var num: u32 = n;
+            if (frame.state.tags.subsetOf(.initMany(&.{ .surface, .descent }))) {
+                num = 0;
+            } else if (frame.state.tags.contains(.garden)) {
+                num = @intFromFloat(n * math.smoothstep(
                     std.math.clamp(
-                        (frame.state.clip_time * 16) / frame.state.clip_length,
+                        (frame.state.tag_times.get(.garden) * 16) /
+                            frame.state.tag_durations.get(.garden),
                         0,
                         1,
                     ),
-                )),
-                else => n,
-            };
+                ));
+            }
+            info.num_elements = num;
         }
     };
 
@@ -778,10 +766,11 @@ pub const buffer = struct {
         }
 
         pub fn updateInfo(info: *BufferInfo) void {
-            info.num_elements = switch (frame.state.clip) {
-                .currents => n,
-                else => 0,
-            };
+            var num: u32 = 0;
+            if (frame.state.tags.contains(.currents)) {
+                num = n;
+            }
+            info.num_elements = num;
         }
     };
 
@@ -907,10 +896,7 @@ pub const storage_buffer = struct {
 
             const ambient_factor = @as(f32, @floatFromInt(num_lights)) /
                 @as(f32, @floatFromInt(buffer.jellyfish_inst.n));
-            const ambient_clip: f32 = switch (frame.state.clip) {
-                .currents => 0.5,
-                else => 0.3,
-            };
+            const ambient_clip: f32 = if (frame.state.tags.contains(.currents)) 0.5 else 0.3;
 
             const header: Header = .{
                 .ambient = @as(Vec3, @splat(ambient_factor * ambient_clip)),

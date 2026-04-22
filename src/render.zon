@@ -23,7 +23,7 @@
                 .drawcalls = .{
                     // Water surface
                     .{
-                        .condition = .{.surface},
+                        .require_any_tags = .{.surface},
                         .pipelines = .{.{
                             .shader = .{ .stages = .{
                                 .vert = .{ .file = "water_surface.vert" },
@@ -43,7 +43,7 @@
                     },
                     // Water volume below surface
                     .{
-                        .condition = .{ .surface, .descent },
+                        .require_any_tags = .{ .surface, .descent },
                         .pipelines = .{.{
                             .shader = .{ .stages = .{
                                 .vert = .{ .file = "tri.vert" },
@@ -55,7 +55,7 @@
                     },
                     // Light shafts
                     .{
-                        .condition = .{.surface},
+                        .require_any_tags = .{.surface},
                         .pipelines = .{.{
                             .shader = .{ .stages = .{
                                 .vert = .{ .file = "light_shaft.vert" },
@@ -77,7 +77,7 @@
                     },
                     // Bubbles
                     .{
-                        .condition = .{ .surface, .descent },
+                        .require_any_tags = .{ .surface, .descent },
                         .pipelines = .{.{
                             .shader = .{ .stages = .{
                                 .vert = .{ .file = "bubble.vert" },
@@ -98,7 +98,7 @@
                     },
                     // Seafloor (descent version, depth-only)
                     .{
-                        .condition = .{.descent},
+                        .require_any_tags = .{.descent},
                         .pipelines = .{.{
                             .shader = .{ .stages = .{
                                 .vert = .{ .file = "static_tris.vert" },
@@ -116,7 +116,7 @@
                     },
                     // Jellyfish
                     .{
-                        .condition = .{ .garden, .currents, .void },
+                        .require_any_tags = .{ .garden, .currents, .void },
                         .pipelines = .{.{
                             .shader = .{ .stages = .{
                                 .vert = .{ .file = "jellyfish.vert" },
@@ -132,7 +132,7 @@
                     },
                     // Seafloor
                     .{
-                        .condition = .{ .garden, .currents, .void },
+                        .require_any_tags = .{ .garden, .currents, .void },
                         .pipelines = .{.{
                             .shader = .{ .stages = .{
                                 .vert = .{ .file = "static_tris.vert" },
@@ -147,7 +147,7 @@
                     },
                     // Floating rocks
                     .{
-                        .condition = .{.currents},
+                        .require_any_tags = .{.currents},
                         .pipelines = .{.{
                             .shader = .{ .stages = .{
                                 .vert = .{ .file = "3d.vert" },
@@ -163,7 +163,7 @@
                     },
                     // Dust
                     .{
-                        .condition = .{.garden},
+                        .require_any_tags = .{.garden},
                         .pipelines = .{.{
                             .shader = .{ .stages = .{
                                 .vert = .{ .file = "dustcloud.vert" },
@@ -183,7 +183,7 @@
                     },
                     // Tentacles
                     .{
-                        .condition = .{ .garden, .currents, .void },
+                        .require_any_tags = .{ .garden, .currents, .void },
                         .pipelines = .{.{
                             .shader = .{ .stages = .{
                                 .vert = .{ .file = "tentacle.vert" },
@@ -203,7 +203,7 @@
                     },
                     // Ribbons
                     .{
-                        .condition = .{.currents},
+                        .require_any_tags = .{.currents},
                         .pipelines = .{.{
                             .shader = .{ .stages = .{
                                 .vert = .{ .file = "ribbon.vert" },
@@ -467,7 +467,7 @@
                     },
                     // Fade to black
                     .{
-                        .condition = .{.void},
+                        .require_any_tags = .{.void},
                         .pipelines = .{.{
                             .shader = .{ .stages = .{
                                 .vert = .{ .file = "tri.vert" },

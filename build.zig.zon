@@ -5,8 +5,7 @@
     .minimum_zig_version = "0.16.0",
     .dependencies = .{
         .mehustin2 = .{
-            .url = "https://github.com/gustafla/mehustin2/archive/refs/tags/v0.8.0.tar.gz",
-            .hash = "mehustin2-0.8.0-0-24Ocz2AwC5xe06qgw9OCrDJir10Q5NVObnoeL6WMnW",
+            .path = "../mehustin2",
         },
     },
     .paths = .{
