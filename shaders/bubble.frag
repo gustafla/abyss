@@ -14,8 +14,6 @@ layout(std430, set = 2, binding = 0) readonly buffer WaterData {
 
 layout(std140, set = 3, binding = 0) uniform FragmentFrameData {
     float u_time_g;
-    float u_time;
-    float u_time_r;
 };
 
 #include <water_common.glsl>

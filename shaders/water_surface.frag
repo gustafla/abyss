@@ -7,7 +7,7 @@ layout(location = 2) flat in vec3 in_cam_pos;
 layout(location = 0) out vec4 out_color;
 
 layout(std140, set = 3, binding = 0) uniform FragmentFrameData {
-    float u_global_time;
+    float u_time_g;
 };
 
 layout(set = 2, binding = 0) uniform sampler2D u_envmap_texture;
@@ -22,7 +22,7 @@ layout(std430, set = 2, binding = 2) readonly buffer WaterData {
 #include <water_common.glsl>
 
 vec3 ripple(vec3 normal, vec2 uv) {
-    float t = u_global_time;
+    float t = u_time_g;
 
     float n1 = texture(u_noise_texture, (uv * 0.1) + vec2(t * 0.02, t * 0.01)).r;
     float n2 = texture(u_noise_texture, (uv * 0.25) - vec2(t * 0.05, t * 0.03)).r;

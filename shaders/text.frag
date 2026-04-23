@@ -10,8 +10,6 @@ layout(set = 2, binding = 0) uniform sampler2DArray u_font_atlas;
 
 layout(std140, set = 3, binding = 0) uniform FragmentFrameData {
     float u_time_g;
-    float u_time;
-    float u_time_r;
 };
 
 #include <noise.glsl>

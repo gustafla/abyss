@@ -467,7 +467,7 @@
                     },
                     // Fade to black
                     .{
-                        .require_any_tags = .{.void},
+                        .require_all_tags = .{.fade},
                         .pipelines = .{.{
                             .shader = .{ .stages = .{
                                 .vert = .{ .file = "tri.vert" },
@@ -479,6 +479,7 @@
                                 .dst_color = .one_minus_src_alpha,
                             }},
                         }},
+                        .fragment_storage_buffers = .{ "tag_times", "tag_durations" },
                     },
                     // Text in front of everything
                     .{

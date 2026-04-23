@@ -6,6 +6,7 @@
         .{ .t = 96.0, .duration = 96.0, .name = "garden" },
         .{ .t = 192.0, .duration = 128.0, .name = "currents" },
         .{ .t = 320.0, .duration = 32.0, .name = "void" },
+        .{ .t = 320.0, .duration = 32.0, .name = "fade" },
     },
     .text = .{
         .atlas_size = 1024,

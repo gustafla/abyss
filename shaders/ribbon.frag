@@ -10,8 +10,6 @@ layout(location = 0) out vec4 out_color;
 
 layout(std140, set = 3, binding = 0) uniform FragmentFrameData {
     float u_time_g;
-    float u_time;
-    float u_time_r;
 };
 
 #define SUN_COLOR vec3(0)
