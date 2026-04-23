@@ -1,12 +1,15 @@
 // Music: D2 by Amarent, BPM: 110, length: 352
 .{
     .tags = .{
-        .{ .t = 0.0, .duration = 56.0, .name = "surface" },
-        .{ .t = 56.0, .duration = 40.0, .name = "descent" },
-        .{ .t = 96.0, .duration = 96.0, .name = "garden" },
-        .{ .t = 192.0, .duration = 128.0, .name = "currents" },
-        .{ .t = 320.0, .duration = 32.0, .name = "void" },
-        .{ .t = 320.0, .duration = 32.0, .name = "fade" },
+        // Main sequence
+        .{ .name = "surface", .duration = 56.0, .t = .seq },
+        .{ .name = "descent", .duration = 40.0, .t = .seq },
+        .{ .name = "garden", .duration = 96.0, .t = .seq },
+        .{ .name = "currents", .duration = 128.0, .t = .seq },
+        .{ .name = "void", .duration = 32.0, .t = .seq },
+
+        // Effects
+        .{ .name = "fade", .duration = 32.0, .t = .{ .rel = .{ .of = "void" } } },
     },
     .text = .{
         .atlas_size = 1024,

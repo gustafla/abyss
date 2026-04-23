@@ -1,12 +1,12 @@
 .{
     .name = .abyss,
-    .version = "1.5.0",
+    .version = "1.6.0",
     .fingerprint = 0x6561cf043298ef8f, // Changing this has security and trust implications.
     .minimum_zig_version = "0.16.0",
     .dependencies = .{
         .mehustin2 = .{
-            .url = "https://github.com/gustafla/mehustin2/archive/refs/tags/v0.9.2.tar.gz",
-            .hash = "mehustin2-0.9.2-0-24OdH6AwA4wuKaIBbVHeDbGbyFvYTFGkScKDoMHLdT",
+            .url = "https://github.com/gustafla/mehustin2/archive/refs/tags/v0.10.0.tar.gz",
+            .hash = "mehustin2-0.10.0-0-24ObsBBAC8mAgcC20YLE8b9oKPuKRIg72Txcpz9hG8",
         },
     },
     .paths = .{
