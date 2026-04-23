@@ -34,7 +34,7 @@
                 .scale = 0.03,
             },
             .{
-                .t = 0,
+                .t = .{ .abs = 0 },
                 .duration = 32,
                 .text = .{ .str = "Mehu" },
                 .pos = .{ 0, 0.2 },
@@ -45,7 +45,7 @@
                 .fade_out = 2,
             },
             .{
-                .t = 24,
+                .t = .{ .abs = 24 },
                 .duration = 8,
                 .text = .{ .str = "Presents" },
                 .pos = .{ -0.1, -0.4 },
@@ -56,7 +56,7 @@
                 .fade_out = 2,
             },
             .{
-                .t = 48,
+                .t = .{ .abs = 48 },
                 .duration = 32,
                 .text = .{ .str = "Abyss" },
                 .pos = .{ 0, 0.2 },
@@ -67,7 +67,7 @@
                 .fade_out = 2,
             },
             .{
-                .t = 80,
+                .t = .{ .abs = 80 },
                 .duration = 16,
                 .text = .{ .str = "Music by" },
                 .pos = .{ -0.2, 0.5 },
@@ -78,7 +78,7 @@
                 .fade_out = 2,
             },
             .{
-                .t = 82,
+                .t = .{ .abs = 82 },
                 .duration = 16,
                 .text = .{ .str = "Amarent" },
                 .pos = .{ 0, 0.2 },
@@ -89,7 +89,7 @@
                 .fade_out = 2,
             },
             .{
-                .t = 320,
+                .t = .{ .rel = .{ .tag = "void" } },
                 .duration = 32,
                 .text = .{
                     .str =
@@ -117,7 +117,7 @@
                 .fade_out = 8,
             },
             .{
-                .t = 336,
+                .t = .{ .rel = .{ .tag = "void", .by = 16 } },
                 .duration = 16,
                 .text = .{
                     .str = "https://mehu.tech",
@@ -134,18 +134,18 @@
     },
     .camera = .{
         .control = .{
-            .{ .t = 0, .i = 0 },
-            .{ .t = 112, .i = 1 },
-            .{ .t = 128, .i = 2, .position_lock = .jellyfish0, .target_lock = .jellyfish0 },
-            .{ .t = 144, .i = 3, .position_lock = .jellyfish1, .target_lock = .jellyfish1 },
-            .{ .t = 160, .i = 4, .position_lock = .jellyfish2, .target_lock = .jellyfish2 },
-            .{ .t = 176, .i = 2, .position_lock = .jellyfish3, .target_lock = .jellyfish3 },
-            .{ .t = 192, .i = 0 },
+            .{ .i = 0, .t = .{ .rel = .{ .tag = "surface" } } },
+            .{ .i = 1, .t = .{ .rel = .{ .tag = "garden", .by = 16 } } },
+            .{ .i = 2, .t = .{ .rel = .{ .tag = "garden", .by = 32 } }, .position_lock = .jellyfish0, .target_lock = .jellyfish0 },
+            .{ .i = 3, .t = .{ .rel = .{ .tag = "garden", .by = 48 } }, .position_lock = .jellyfish1, .target_lock = .jellyfish1 },
+            .{ .i = 4, .t = .{ .rel = .{ .tag = "garden", .by = 64 } }, .position_lock = .jellyfish2, .target_lock = .jellyfish2 },
+            .{ .i = 2, .t = .{ .rel = .{ .tag = "garden", .by = 80 } }, .position_lock = .jellyfish3, .target_lock = .jellyfish3 },
+            .{ .i = 0, .t = .{ .rel = .{ .tag = "currents" } } },
         },
         .tracks = .{
             .{ // TRACK 0
                 .{
-                    .t = 0,
+                    .t = .{ .rel = .{ .tag = "surface" } },
                     .entry = .{ .pos = .{ -16, -20, -16 }, .target = .{ 0, 0, 0 }, .fov = 90 },
                     .motion = .{
                         .{ .circle = .{ .axis = .{ 0, 1, 0 }, .speed = 0.02 } },
@@ -153,40 +153,40 @@
                     .blend = 17,
                 },
                 .{
-                    .t = 56,
+                    .t = .{ .rel = .{ .tag = "descent" } },
                     .entry = .{ .pos = .{ -16, -30, -16 }, .target = .{ 0, -128, 0 }, .fov = 90 },
                     .blend = -1,
                 },
                 .{
-                    .t = 96,
+                    .t = .{ .rel = .{ .tag = "garden" } },
                     .entry = .{ .pos = .{ -7, -1000, -7 }, .target = .{ 0, -1000, 0 }, .fov = 90 },
                 },
                 .{
-                    .t = 192,
+                    .t = .{ .rel = .{ .tag = "currents" } },
                     .entry = .{ .pos = .{ -80, -990, 80 }, .target = .{ 200, -920, -100 }, .fov = 90 },
                     .motion = .{.{ .dolly = .{ .speed = 6.6 } }},
                     .blend = 0,
                 },
                 .{
-                    .t = 208,
+                    .t = .{ .rel = .{ .tag = "currents", .by = 16 } },
                     .entry = .{ .pos = .{ 100, -920, 100 }, .target = .{ -100, -990, -100 }, .fov = 90 },
                     .motion = .{.{ .dolly = .{ .speed = 4.6 } }},
                     .blend = 0,
                 },
                 .{
-                    .t = 224,
+                    .t = .{ .rel = .{ .tag = "currents", .by = 32 } },
                     .entry = .{ .pos = .{ 100, -980, -100 }, .target = .{ -100, -920, 100 }, .fov = 90 },
                     .motion = .{.{ .dolly = .{ .speed = 5.6 } }},
                     .blend = 12,
                 },
                 .{
-                    .t = 240,
+                    .t = .{ .rel = .{ .tag = "currents", .by = 48 } },
                     .entry = .{ .pos = .{ 50, -980, -50 }, .target = .{ 35, -970, 20 }, .fov = 90 },
                     .motion = .{.{ .circle = .{ .axis = .{ 0.8, 1, 0 }, .speed = 0.05 } }},
                     .blend = 0,
                 },
                 .{
-                    .t = 256,
+                    .t = .{ .rel = .{ .tag = "currents", .by = 64 } },
                     .entry = .{ .pos = .{ -20, -970, 0 }, .target = .{ 40, -990, 20 }, .fov = 90 },
                     .motion = .{
                         .{ .dolly = .{ .speed = 3.00 } },
@@ -195,7 +195,7 @@
                     .blend = 0,
                 },
                 .{
-                    .t = 272,
+                    .t = .{ .rel = .{ .tag = "currents", .by = 80 } },
                     .entry = .{ .pos = .{ -20, -950, -60 }, .target = .{ 0, -970, 20 }, .fov = 90 },
                     .motion = .{
                         .{ .orbit = .{ .axis = .{ -0.7, 1, -0.3 }, .speed = -0.04 } },
@@ -203,7 +203,7 @@
                     .blend = 0,
                 },
                 .{
-                    .t = 320,
+                    .t = .{ .rel = .{ .tag = "void" } },
                     .entry = .{ .pos = .{ 20, -990, 20 }, .target = .{ -20, -990, -20 }, .fov = 90 },
                     .motion = .{
                         .{ .dolly = .{ .speed = 3 } },
@@ -213,14 +213,14 @@
             },
             .{ // TRACK 1
                 .{
-                    .t = 0,
+                    .t = .{ .abs = 0 },
                     .entry = .{ .pos = .{ -64, -980, -64 }, .target = .{ 0, -1000, 0 }, .fov = 90 },
                     .motion = .{.{ .circle = .{ .axis = .{ 0, 1, 0.3 }, .speed = 0.04 } }},
                 },
             },
             .{ // TRACK 2
                 .{
-                    .t = 0,
+                    .t = .{ .abs = 0 },
                     .entry = .{ .pos = .{ 14, 13, 12 }, .target = .{ 0, 0, 0 }, .fov = 90 },
                     .motion = .{.{
                         .orbit = .{ .axis = .{ 0.1, 0.6, 0.4 }, .speed = 0.12 },
@@ -229,7 +229,7 @@
             },
             .{ // TRACK 3
                 .{
-                    .t = 0,
+                    .t = .{ .abs = 0 },
                     .entry = .{ .pos = .{ 5, 12, 6 }, .target = .{ 0, 0, 0 }, .fov = 90 },
                     .motion = .{.{
                         .circle = .{ .axis = .{ 1.1, 0.6, -0.4 }, .speed = -0.1 },
@@ -238,7 +238,7 @@
             },
             .{ // TRACK 4
                 .{
-                    .t = 0,
+                    .t = .{ .abs = 0 },
                     .entry = .{ .pos = .{ -9, 10, 8 }, .target = .{ 0, 0, 0 }, .fov = 90 },
                     .motion = .{.{
                         .circle = .{ .axis = .{ 0.1, 1.0, -0.1 }, .speed = 0.01 },
